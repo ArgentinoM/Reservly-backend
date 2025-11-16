@@ -19,7 +19,9 @@ class DatabaseSeeder extends Seeder
             RolSeeder::class,
             UsersSeeder::class,
             CategoriesSeeder::class,
-            ServicesSeeder::class
+            ServicesSeeder::class,
+            ReviewsTableSeeder::class,
+            RatingSeeder::class
         ]);
     }
 }

@@ -18,9 +18,9 @@ class UserResorces extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'surname' => $this->surname,
-            'img' => $this->img,
+            'img' => $this->img_perfil,
             'email' => $this->email,
-            'rol' => $this->rol->name,
+            'rol' => $this->rol,
         ];
     }
 }

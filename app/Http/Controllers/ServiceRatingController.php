@@ -18,7 +18,7 @@ class ServiceRatingController extends Controller
 
         $serviceRating = ServiceRating::where('service_id', $service->id);
 
-        if (isset($serviceRating)) {
+        if (!$serviceRating) {
             return response()->json([
                 'error' => 'No se encontro rating del servicio',
             ], Response::HTTP_UNPROCESSABLE_ENTITY);

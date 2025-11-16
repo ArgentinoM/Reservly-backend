@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\UserRequest;
 use App\Http\Resources\UserResorces;
+use App\Models\Rol;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -21,38 +22,18 @@ class AuthController extends Controller
             return response()->json(['error' => 'Las contraseñas no coinciden'], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        $role = Rol::where('name', $validateData['role'])->first();
+
         $user = User::create([
             'name' => $validateData['name'],
             'surname' => $validateData['surname'],
             'email' => $validateData['email'],
             'password' => bcrypt($validateData['password']),
-            'rol_id' => 2
+            'rol_id' => $role->id
         ]);
 
         return response()->json([
             'message' => 'Usuario resgitrado correctamente',
-            'data' => new UserResorces($user),
-        ], Response::HTTP_CREATED);
-    }
-
-    public function registerSell(UserRequest $user)
-    {
-        $validateData = $user->validated();
-
-        if ($validateData['confirm_password'] !== $validateData['password']) {
-            return response()->json(['error' => 'Las contraseñas no coinciden'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        $user = User::create([
-            'name' => $validateData['name'],
-            'surname' => $validateData['surname'],
-            'email' => $validateData['email'],
-            'password' => bcrypt($validateData['password']),
-            'rol_id' => 1
-        ]);
-
-        return response()->json([
-            'message' => 'Vendedor resgitrado correctamente',
             'data' => new UserResorces($user),
         ], Response::HTTP_CREATED);
     }

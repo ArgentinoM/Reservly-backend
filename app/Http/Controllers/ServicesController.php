@@ -29,7 +29,12 @@ class ServicesController extends Controller
 
         $query = Services::query();
 
+        $query->with('rating');
+
         $query = (new ServicesFilter(request()))->apply($query);
+
+        // $query->inRandomOrder();
+
 
         $services = $query->paginate($perPage);
 
@@ -37,7 +42,13 @@ class ServicesController extends Controller
 
         return response()->json([
             'message' => 'Solicitud exitosa',
-            'data' => $services
+            'data' => ServicesResorces::collection($services->items()),
+            'meta' => [
+                'current_page' => $services->currentPage(),
+                'last_page' => $services->lastPage(),
+                'per_page' => $services->perPage(),
+                'total' => $services->total()
+            ]
         ], Response::HTTP_OK);
     }
 

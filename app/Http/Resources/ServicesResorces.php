@@ -23,6 +23,7 @@ class ServicesResorces extends JsonResource
             'img' => $this->img,
             'user' => $this->user->name,
             'category' => $this->category->name,
+            'rating' => new RatingResorces($this->rating)
         ];
     }
 }

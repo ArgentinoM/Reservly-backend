@@ -18,4 +18,9 @@ class ServiceRating extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function service()
+    {
+        return $this->hasOne(Services::class, 'service_id', 'id');
+    }
 }

@@ -26,7 +26,8 @@ class UserRequest extends ApiFormRequest
             'surname' => 'required|string|max:100',
             'email' => 'required|email|string|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'confirm_password' => 'required|string|min:8'
+            'confirm_password' => 'required|string|min:8',
+            'role' => 'required|string|exists:roles,name'
         ];
     }
 
@@ -50,6 +51,8 @@ class UserRequest extends ApiFormRequest
             'confirm_password.required' => 'La contraseña es obligatorio',
             'confirm_password.string' => 'La contraseña debe de ser una cadena de texto',
             'confirm_password.min' => 'La contraseña debe superar los 255 caracteres',
+            'role.required' => 'El rol es obligatorio',
+            'role.string' => 'El rol debe de ser una cadena de texto',
         ];
     }
 }

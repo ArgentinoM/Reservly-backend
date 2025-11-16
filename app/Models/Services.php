@@ -38,6 +38,11 @@ class Services extends Model
         return $this->hasMany(Review::class, 'service_id', 'id');
     }
 
+    public function rating()
+    {
+        return $this->hasOne(ServiceRating::class, 'service_id', 'id');
+    }
+
     public function reservation()
     {
         return $this->hasMany(Reservation::class, 'service_id', 'id');

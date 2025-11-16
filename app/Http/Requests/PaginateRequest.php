@@ -21,7 +21,7 @@ class PaginateRequest extends ApiFormRequest
     {
         return [
             'page' => 'integer|required',
-            'perPage' => 'integer'
+            'perPage' => 'integer',
         ];
     }
 

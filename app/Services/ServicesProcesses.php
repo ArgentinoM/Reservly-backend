@@ -24,18 +24,25 @@ class ServicesProcesses
             'overwrite' => true,
         ]);
 
-        $imageUrl = $result['secure_url'];
+        $originalUrl = $result['secure_url'];
+
+        $optimizedUrl = str_replace(
+            '/upload/',
+            '/upload/w_1200,c_limit,f_auto,q_auto/',
+            $originalUrl
+        );
 
         return Services::create([
             'name' => $data->name,
             'desc' => $data->desc,
             'price' => $data->price,
             'duration' => $data->duration,
-            'img' => $imageUrl,
+            'img' => $optimizedUrl,
             'user_id' => auth()->id(),
             'category_id' => $data->category_id,
         ]);
     }
+
 
     public function updateService(ServiceData $data, int $service_id)
     {
