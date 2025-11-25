@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Data\ServiceData;
 use App\Filters\ServicesFilter;
 use App\Http\Requests\PaginateRequest;
-use App\Http\Requests\services\ServicesRequest;
+use App\Http\Requests\Services\ServicesRequest;
 use App\Http\Requests\Services\UpdateService;
 use App\Http\Resources\ServicesResorces;
 use App\Models\Services;
