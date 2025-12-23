@@ -14,7 +14,7 @@ class UpdateService extends ApiFormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|string|max:50|unique:services,name',
+            'name' => 'sometimes|string|max:50|unique:services',
             'desc' => 'sometimes|string|max:255',
             'price' => 'sometimes|numeric|min:100',
             'duration' => 'sometimes|integer|max:24',

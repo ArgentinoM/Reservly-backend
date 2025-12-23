@@ -7,6 +7,8 @@ use App\Exceptions\ApiException;
 use App\Models\Services;
 use App\Models\User;
 use Cloudinary\Api\Upload\UploadApi;
+use Cloudinary\Cloudinary;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 
 class ServicesProcesses
@@ -48,29 +50,25 @@ class ServicesProcesses
     {
         $service = Services::find($service_id);
 
-        if (!$service) {
-            throw new ApiException(
-                'No se encuentra el servicio'
-            );
-        }
-
-        if ($data->img->hasFile('img')) {
+        if ($data->img) {
             if ($service->img) {
-                Storage::disk('cloudinary')->delete($service->img);
+                Cloudinary()->uploadApi()->destroy($service->name);
             }
 
-            $service->img = $data->img->file('img');
+            $service->img = Cloudinary()->uploadApi()->upload($data->img->getRealPath(), [
+                'public_id' => 'services-' . preg_replace('/[^A-Za-z0-9\-]/', '-', $service->name),
+                'overwrite' => true,
+            ])['secure_url'];
         }
 
-
-        $service->update([
+        $service->update(array_filter([
             'name' => $data->name,
             'desc' => $data->desc,
-            'desc' => $data->price,
-            'desc' => $data->duration,
-            'desc' => $data->img,
-            'desc' => $data->category_id,
-        ]);
+            'price' => $data->price,
+            'duration' => $data->duration,
+            'category_id' => $data->category_id,
+            'img' => $service->img,
+        ], fn($v) => $v !== null));
 
         return $service;
     }

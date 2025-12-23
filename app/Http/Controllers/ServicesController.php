@@ -76,6 +76,8 @@ class ServicesController extends Controller
     {
         $validateData = $request->validated();
 
+        dd($validateData['img']);
+
         $services = $this->serviceProcessor->createService(
             ServiceData::from([
                 'name' => $validateData['name'],
@@ -97,21 +99,20 @@ class ServicesController extends Controller
     {
         $validateData = $request->validated();
 
-        $services = $this->serviceProcessor->updateService(
-            ServiceData::from([
-                'name' => $validateData['name'],
-                'desc' => $validateData['desc'],
-                'price' => $validateData['price'],
-                'duration' => $validateData['duration'],
-                'img' => $request->file('img'),
-                'category_id' => $validateData['category_id'],
-            ]),
-            $service_id
-        );
+        $serviceData = ServiceData::from([
+                'name' => $validateData['name'] ?? null,
+                'desc' => $validateData['desc'] ?? null,
+                'price' => $validateData['price'] ?? null,
+                'duration' => $validateData['duration'] ?? null,
+                'img' => $request->file('img') ?? null,
+                'category_id' => $validateData['category_id'] ?? null,
+        ]);
+
+        $service = $this->serviceProcessor->updateService($serviceData, $service_id);
 
         return response()->json([
             'message' => 'Actualización exitosa',
-            'data' => $services
+            'data' => $service
         ], Response::HTTP_ACCEPTED);
     }
 

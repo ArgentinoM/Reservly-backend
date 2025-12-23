@@ -27,7 +27,7 @@ Route::middleware("jwt.auth")->group(function () {
 
     Route::middleware('seller')->group(function () {
         Route::post('serviceStore', [ServicesController::class, 'store']);
-        Route::patch('serviceUpdate/{service_id}', [ServicesController::class, 'update']);
+        Route::post('serviceUpdate/{service_id}', [ServicesController::class, 'update']);
         Route::delete('serviceDelete/{services_id}', [ServicesController::class, 'delete']);
         Route::post('cancelDeleteServcices/{service_id}', [ServicesController::class, 'cancelDelete']);
     });

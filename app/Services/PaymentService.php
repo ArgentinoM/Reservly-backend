@@ -55,10 +55,4 @@ class PaymentService
     }
 
 
-    public function cancelPaymentIntent(string $paymentIntentId): PaymentIntent
-    {
-        $paymentIntent = PaymentIntent::retrieve($paymentIntentId);
-
-        return $paymentIntent->cancel();
-    }
 }
