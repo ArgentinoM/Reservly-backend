@@ -14,9 +14,7 @@ class UserController extends Controller
 
         $user = auth()->user();
 
-        $user->fill($validatedData);
-
-        if (!empty($validatedData['img_perfil'])) {
+        if ($validatedData['img_perfil']) {
             if ($user->img_perfil) {
                 Cloudinary()->uploadApi()->destroy($user->img_perfil);
             }
@@ -27,16 +25,10 @@ class UserController extends Controller
             ])['secure_url'];
         }
 
-        if ($user->isDirty()) {
-            $user->save();
-            return response()->json([
-                'message' => 'Usuario actualizado correctamente',
-                'data' => new UserResorces($user),
-            ], Response::HTTP_OK);
-        }
-
+        $user->save();
         return response()->json([
-            'message' => 'No se realizaron cambios',
+            'message' => 'Usuario actualizado correctamente',
+            'data' => new UserResorces($user),
         ], Response::HTTP_OK);
     }
 }

@@ -23,7 +23,7 @@ Route::middleware("jwt.auth")->group(function () {
     // Auth
     Route::get('auth/verify', [AuthController::class, 'status']);
     Route::get('auth/logout', [AuthController::class, 'logout']);
-    Route::patch('users', [UserController::class, 'update']);
+    Route::post('users', [UserController::class, 'update']);
 
     // Categories
     Route::get('categories', [CategoriesController::class, 'showAll']);
