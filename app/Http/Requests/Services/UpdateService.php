@@ -15,7 +15,7 @@ class UpdateService extends ApiFormRequest
     {
         return [
             'name' => 'sometimes|string|max:50|unique:services',
-            'desc' => 'sometimes|string|max:255',
+            'desc' => 'sometimes|string|max:1000',
             'price' => 'sometimes|numeric|min:200',
             'duration' => 'sometimes|integer|max:24',
             'img' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
@@ -28,7 +28,7 @@ class UpdateService extends ApiFormRequest
         return [
             'name.unique' => 'El nombre debe de ser único',
             'name.string' => 'El nombre debe ser una cadena de texto',
-            'name.max' => 'El nombre no debe superar los 50 caracteres',
+            'name.max' => 'El nombre no debe superar los 1000 caracteres',
             'desc.string' => 'La descripción debe ser una cadena de texto',
             'desc.max' => 'La descripción no debe superar los 255 caracteres',
             'price.numeric' => 'El precio debe ser un valor numérico',

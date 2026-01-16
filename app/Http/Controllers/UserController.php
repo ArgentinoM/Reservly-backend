@@ -14,6 +14,8 @@ class UserController extends Controller
 
         $user = auth()->user();
 
+        $user->fill($request->validated());
+
         if ($validatedData['img_perfil']) {
             if ($user->img_perfil) {
                 Cloudinary()->uploadApi()->destroy($user->img_perfil);
@@ -26,6 +28,7 @@ class UserController extends Controller
         }
 
         $user->save();
+
         return response()->json([
             'message' => 'Usuario actualizado correctamente',
             'data' => new UserResorces($user),

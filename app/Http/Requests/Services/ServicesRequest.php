@@ -24,7 +24,7 @@ class ServicesRequest extends ApiFormRequest
     {
         return [
             'name' => 'required|string|max:50|unique:services',
-            'desc' => 'required|string|max:255',
+            'desc' => 'required|string|max:1000',
             'price' => 'numeric|min:200|required',
             'duration' => 'required|integer|max:24',
             'img' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:5120',
@@ -38,7 +38,7 @@ class ServicesRequest extends ApiFormRequest
             'name.required' => 'El nombre es obligatorio',
             'name.unique' => 'El nombre debe de ser unico',
             'name.string' => 'El nombre debe de ser una cadena de texto',
-            'name.max' => 'El nombre no debe superar los 50 caracteres',
+            'name.max' => 'El nombre no debe superar los 1000 caracteres',
             'desc.required' => 'La descripción es obligatoria',
             'desc.string' => 'La descripción debe de ser una cadena de texto',
             'desc.max' => 'La descripción no debe superar los 50 caracteres',
